@@ -1,4 +1,4 @@
-import 'package:fish_radar/demos/card.dart';
+import 'package:fish_radar/demos/home_page_card.dart';
 import 'package:flutter/material.dart';
 
 class FishPage extends StatefulWidget {
@@ -24,19 +24,19 @@ class _FishPageState extends State<FishPage> {
         Expanded(
           child: ListView(
             children: [
-              CardExample(
+              HomePageCard(
                 titleText: 'PUAHSDHKAJSDSAD',
                 subtitleText: 'Use our module',
                 leadingIcon: const Icon(Icons.school_outlined),
                 onTap: () {},
               ),
-              CardExample(
+              HomePageCard(
                 titleText: 'BU FLUTTER COK ZEVKLİ',
                 subtitleText: 'Open Google maps',
                 leadingIcon: const Icon(Icons.map_sharp),
                 onTap: () {},
               ),
-              CardExample(
+              HomePageCard(
                 titleText: 'BALIK TÜRLERİ HAKKINDA BİLGİ',
                 subtitleText: 'See your favorite fish',
                 leadingIcon: const Icon(Icons.favorite_border_outlined),

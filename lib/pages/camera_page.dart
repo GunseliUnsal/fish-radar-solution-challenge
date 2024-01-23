@@ -1,4 +1,4 @@
-
+import 'package:fish_radar/demos/home_page_card.dart';
 import 'package:flutter/material.dart';
 
 class CameraPage extends StatefulWidget {

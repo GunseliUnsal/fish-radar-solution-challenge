@@ -1,8 +1,8 @@
 import 'package:fish_radar/constants/colors.dart';
 import 'package:flutter/material.dart';
 
-class CardExample extends StatelessWidget {
-  const CardExample({
+class HomePageCard extends StatelessWidget {
+  const HomePageCard({
     super.key,
     required this.titleText,
     required this.subtitleText,

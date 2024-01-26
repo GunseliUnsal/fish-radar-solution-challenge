@@ -1,5 +1,6 @@
 import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/demos/navigator.dart';
+import 'package:fish_radar/pages/map_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Fish Radar',
       theme: ThemeData(
         scaffoldBackgroundColor: backgroundColor,
         visualDensity: VisualDensity.adaptivePlatformDensity,

@@ -6,12 +6,11 @@ import 'package:fish_radar/demos/home_page_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
-      {Key? key,
+      {super.key,
       required this.fishDescription,
       required this.fishTitle,
       required this.pageController,
-      required this.notchBottomBarController})
-      : super(key: key);
+      required this.notchBottomBarController});
 
   final String fishDescription;
   final String fishTitle;
@@ -58,6 +57,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: ListView(
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 HomePageCard(
                   titleText: 'LEARN HOW TO SAVE OCEAN',

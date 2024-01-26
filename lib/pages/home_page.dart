@@ -1,17 +1,16 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
-import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/pages/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish_radar/demos/home_page_card.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage(
-      {Key? key,
-      required this.fishDescription,
-      required this.fishTitle,
-      required this.pageController,
-      required this.notchBottomBarController})
-      : super(key: key);
+  const HomePage({
+    Key? key,
+    required this.fishDescription,
+    required this.fishTitle,
+    required this.pageController,
+    required this.notchBottomBarController,
+  }) : super(key: key);
 
   final String fishDescription;
   final String fishTitle;
@@ -63,14 +62,22 @@ class _HomePageState extends State<HomePage> {
                   titleText: 'LEARN HOW TO SAVE OCEAN',
                   subtitleText: 'Use our module',
                   leadingIcon: const Icon(Icons.school_outlined),
-                  onTap: () {},
+                  onTap: () {
+                    // Burada istediğiniz işlemleri yapabilirsiniz.
+                    print("1. kart");
+                  },
                 ),
                 HomePageCard(
                   titleText: 'FIND FISHES AROUND YOU',
                   subtitleText: 'Open Google maps',
                   leadingIcon: const Icon(Icons.map_sharp),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MapPage()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MapPage(),
+                      ),
+                    );
                   },
                 ),
                 HomePageCard(
@@ -78,7 +85,8 @@ class _HomePageState extends State<HomePage> {
                   subtitleText: 'See your favorite fish',
                   leadingIcon: const Icon(Icons.favorite_border_outlined),
                   onTap: () {
-                    print("3 kart");
+                    // Burada istediğiniz işlemleri yapabilirsiniz.
+                    print("3. kart");
                   },
                 ),
               ],
@@ -104,12 +112,16 @@ class _FishDescription extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width - 40, // Ekran genişliği - padding
+            width: MediaQuery.of(context).size.width -
+                40, // Ekran genişliği - padding
             child: Text(
               fishDescription,
-              style: TextStyle(color: whiteColor.withOpacity(0.8), fontSize: 14),
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.8),
+                fontSize: 14,
+              ),
               overflow: TextOverflow.ellipsis,
-              maxLines: 3, // İstediğiniz satır sayısı
+              maxLines: 3,
             ),
           ),
         ],
@@ -136,11 +148,17 @@ class _FishTitle extends StatelessWidget {
         children: [
           Text(
             fishOfTheDayText,
-            style: TextStyle(color: whiteColor.withOpacity(0.8), fontSize: 12),
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.8),
+              fontSize: 12,
+            ),
           ),
           Text(
             fishTitle,
-            style: TextStyle(color: whiteColor, fontSize: 24),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+            ),
           ),
         ],
       ),

@@ -18,20 +18,20 @@ class _FishPageState extends State<FishPage> {
       children: [
         const Center(
             child: Text(
-          "Hello maloşi",
+          "Fish Page",
           style: TextStyle(color: Colors.white),
         )),
         Expanded(
           child: ListView(
             children: [
               HomePageCard(
-                titleText: 'PUAHSDHKAJSDSAD',
+                titleText: 'Fish Page',
                 subtitleText: 'Use our module',
                 leadingIcon: const Icon(Icons.school_outlined),
                 onTap: () {},
               ),
               HomePageCard(
-                titleText: 'BU FLUTTER COK ZEVKLİ',
+                titleText: 'Fish Page',
                 subtitleText: 'Open Google maps',
                 leadingIcon: const Icon(Icons.map_sharp),
                 onTap: () {},

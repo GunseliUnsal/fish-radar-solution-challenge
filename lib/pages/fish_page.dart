@@ -1,5 +1,7 @@
 import 'package:fish_radar/demos/home_page_card.dart';
+import 'package:fish_radar/pages/fish_list_page.dart';
 import 'package:flutter/material.dart';
+
 
 class FishPage extends StatefulWidget {
   const FishPage({super.key});
@@ -18,29 +20,33 @@ class _FishPageState extends State<FishPage> {
       children: [
         const Center(
             child: Text(
-          "Fish Page",
+          "Hello maloşi",
           style: TextStyle(color: Colors.white),
         )),
         Expanded(
           child: ListView(
             children: [
               HomePageCard(
-                titleText: 'Fish Page',
+                titleText: 'PUAHSDHKAJSDSAD',
                 subtitleText: 'Use our module',
                 leadingIcon: const Icon(Icons.school_outlined),
-                onTap: () {},
+                onTap: () {
+                },
               ),
               HomePageCard(
-                titleText: 'Fish Page',
+                titleText: 'BU FLUTTER COK ZEVKLİ',
                 subtitleText: 'Open Google maps',
                 leadingIcon: const Icon(Icons.map_sharp),
-                onTap: () {},
+                onTap: () {
+                },
               ),
               HomePageCard(
                 titleText: 'BALIK TÜRLERİ HAKKINDA BİLGİ',
                 subtitleText: 'See your favorite fish',
                 leadingIcon: const Icon(Icons.favorite_border_outlined),
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => FishListPage()));
+                },
               ),
             ],
           ),

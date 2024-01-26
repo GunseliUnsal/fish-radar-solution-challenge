@@ -4,8 +4,11 @@ import 'package:fish_radar/pages/fish_page.dart';
 import 'package:fish_radar/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fish_radar/fishdetails/sea_bass.dart';
+
+
 class NavigatorPage extends StatefulWidget {
-  const NavigatorPage({super.key});
+  const NavigatorPage({Key? key}) : super(key: key);
 
   @override
   State<NavigatorPage> createState() => _NavigatorPageState();
@@ -40,7 +43,8 @@ class _NavigatorPageState extends State<NavigatorPage> {
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
-        children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index]),
+        children: List.generate(
+            bottomBarPages.length, (index) => bottomBarPages[index]),
       ),
       extendBody: true,
       bottomNavigationBar: (bottomBarPages.length <= maxCount)

@@ -1,7 +1,11 @@
+import 'package:fish_radar/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'fish_card.dart';
-import 'fish_detail_page.dart';
 import 'endangered_fish.dart';
+
+import 'package:fish_radar/fishdetails/sea_bass.dart';
+import 'package:fish_radar/fishdetails/gilthead_sea_bream.dart';
+import 'package:fish_radar/fishdetails/carol_fish.dart';
 
 class FishListPage extends StatefulWidget {
   @override
@@ -11,94 +15,122 @@ class FishListPage extends StatefulWidget {
 class _FishListPageState extends State<FishListPage> {
   List<FishCard> fishcardlar = [
     FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 1',
-      description: 'Description of Fish 1',
+      imageURL:
+          'assets/fish_pic/seabass.jpeg', //bide buralarda benim yüklediğim fotoğraflar gözükmüyor
+      name: 'Sea Bass',
+      description:
+          'Sea bass is a delicious sea fish that lives in cold and temperate waters.',
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SeaBassPage()));
+        /*Gunseli burada Fish Detail kısımlarına gitmek için onTap içine yolu
+        tanımladım ama context kısmında hata veriyor. Başka kodlar fln denedik
+        ama doğru çözümü bulamadık.
+        */
+      },
     ),
     FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 2',
-      description: 'Description of Fish 2',
+      imageURL: 'assets/fish_pic/giltheadsea.jpg',
+      name: 'Gilthead Sea Bream',
+      description:
+          'Sea bream is a popular marine fish that lives in warm and temperate seas. ',
+      onTap: () {},
     ),
     FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 3',
-      description: 'Description of Fish 3',
+      imageURL: 'assets/fish_pic/carolfish.png',
+      name: 'Coral (Grouper)',
+      description: 'It feeds on corals, other fish, crustaceans and seafood. ',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 4',
       description: 'Description of Fish 4',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 5',
       description: 'Description of Fish 5',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 6',
       description: 'Description of Fish 6',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 7',
       description: 'Description of Fish 7',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 8',
       description: 'Description of Fish 8',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 9',
       description: 'Description of Fish 9',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 10',
       description: 'Description of Fish 10',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 11',
       description: 'Description of Fish 11',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 12',
       description: 'Description of Fish 12',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 13',
       description: 'Description of Fish 13',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 14',
       description: 'Description of Fish 14',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 15',
       description: 'Description of Fish 15',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 16',
       description: 'Description of Fish 16',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 17',
       description: 'Description of Fish 17',
+      onTap: () {},
     ),
     FishCard(
       imageURL: 'https://example.com/image1.jpg',
       name: 'Fish 18',
       description: 'Description of Fish 18',
+      onTap: () {},
     ),
   ];
 
@@ -108,7 +140,7 @@ class _FishListPageState extends State<FishListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xFF192E51),
+        backgroundColor: backgroundColor,
         title: TextField(
           onChanged: (value) {
             setState(() {
@@ -130,7 +162,7 @@ class _FishListPageState extends State<FishListPage> {
         ),
       ),
       body: Container(
-        color: const Color(0xFF192E51),
+        color: backgroundColor,
         child: Column(
           children: [
             EndangeredFishCard(),
@@ -146,9 +178,9 @@ class _FishListPageState extends State<FishListPage> {
                       : filteredFishCards[index];
 
                   return Card(
-                    color: Colors.white,
+                    color: whiteColor,
                     child: InkWell(
-                      onTap: () {
+                      /*onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -157,6 +189,7 @@ class _FishListPageState extends State<FishListPage> {
                           ),
                         );
                       },
+                       */
                       child: Stack(
                         children: [
                           ListTile(

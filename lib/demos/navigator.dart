@@ -4,10 +4,8 @@ import 'package:fish_radar/pages/fish_list_page.dart';
 import 'package:fish_radar/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-import 'package:fish_radar/fishdetails/sea_bass.dart';
-
 class NavigatorPage extends StatefulWidget {
-  const NavigatorPage({Key? key}) : super(key: key);
+  const NavigatorPage({super.key});
 
   @override
   State<NavigatorPage> createState() => _NavigatorPageState();
@@ -35,15 +33,14 @@ class _NavigatorPageState extends State<NavigatorPage> {
           fishDescription:
               "Pomacanthus xanthometopon grows to a maximum length of 38 centimetres (15 in) and is laterally compressed. The mouth is just..."),
       const CameraPage(),
-      FishListPage(),
+      const FishListPage(),
     ];
 
     return Scaffold(
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
-        children: List.generate(
-            bottomBarPages.length, (index) => bottomBarPages[index]),
+        children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index]),
       ),
       extendBody: true,
       bottomNavigationBar: (bottomBarPages.length <= maxCount)

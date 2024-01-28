@@ -18,9 +18,7 @@ class FishModel {
       id: json['id'],
       name: json['name'],
       url: json['url'],
-      imgSrcSet: json['img_src_set'] != null
-          ? ImgSrcSet.fromJson(json['img_src_set'])
-          : null,
+      imgSrcSet: json['img_src_set'] != null ? ImgSrcSet.fromJson(json['img_src_set']) : null,
       //  meta: Meta.fromJson(json['meta']),
     );
   }
@@ -59,8 +57,7 @@ class Meta {
   factory Meta.fromJson(Map<String, dynamic> json) {
     return Meta(
       genera: json['genera'],
-      scientificClassification:
-          ScientificClassification.fromJson(json['scientific_classification']),
+      scientificClassification: ScientificClassification.fromJson(json['scientific_classification']),
     );
   }
 }

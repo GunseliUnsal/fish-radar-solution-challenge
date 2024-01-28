@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fish_radar/api/model/fish_model.dart';
-import 'package:fish_radar/api/utils/constants.dart';
-import 'package:fish_radar/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fish_radar/pages/fish_card.dart';
 import 'package:fish_radar/pages/fish_detail_page.dart';
@@ -27,7 +25,7 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                   imageURL: widget.fish.imgSrcSet!.x2 ??
                       widget.fish.imgSrcSet!.x1_5 ??
                       "gggg", // Use the appropriate image URL
-                  name: widget.fish.name ?? "FISH_TITLE",
+                  name: widget.fish.name,
                   description: 'Description of ${widget.fish.name}',
                   onTap: () {
                     // Handle tap action if needed
@@ -47,16 +45,11 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                     colorBlendMode: BlendMode.darken,
                     alignment: Alignment.center,
                     fadeInCurve: Curves.easeIn,
-                    imageUrl: widget.fish.imgSrcSet!.x2 ??
-                        widget.fish.imgSrcSet!.x1_5 ??
-                        "",
-                    placeholder: (context, url) => Image.asset(
-                        "assets/png/placeholder.png",
-                        fit: BoxFit.fitWidth), // Placeholder widget
-                    errorWidget: (context, url, error) => Image.asset(
-                        "assets/png/placeholder.png",
-                        fit: BoxFit
-                            .fitWidth), // Error widget if image fails to load
+                    imageUrl: widget.fish.imgSrcSet!.x2 ?? widget.fish.imgSrcSet!.x1_5 ?? "",
+                    placeholder: (context, url) =>
+                        Image.asset("assets/png/placeholder.png", fit: BoxFit.fitWidth), // Placeholder widget
+                    errorWidget: (context, url, error) => Image.asset("assets/png/placeholder.png",
+                        fit: BoxFit.fitWidth), // Error widget if image fails to load
                     height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -72,29 +65,20 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: <Color>[
-                          Colors.black.withAlpha(0),
-                          Colors.black12,
-                          Colors.black45
-                        ],
+                        colors: <Color>[Colors.black.withAlpha(0), Colors.black12, Colors.black45],
                       ),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         widget.fish.name,
-                        style: TextStyle(
-                            shadows: const [
-                              Shadow(
-                                blurRadius: 10.0, // shadow blur
-                                color: Colors.black45, // shadow color
-                                offset: Offset(
-                                    2.0, 2.0), // how much shadow will be shown
-                              ),
-                            ],
-                            color: Colors.white.withAlpha(200),
-                            fontSize: 20,
-                            fontWeight: FontWeight.w400),
+                        style: TextStyle(shadows: const [
+                          Shadow(
+                            blurRadius: 10.0, // shadow blur
+                            color: Colors.black45, // shadow color
+                            offset: Offset(2.0, 2.0), // how much shadow will be shown
+                          ),
+                        ], color: Colors.white.withAlpha(200), fontSize: 20, fontWeight: FontWeight.w400),
                       ),
                     )),
               ),

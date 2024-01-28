@@ -1,4 +1,3 @@
-
 class FishCard {
   String imageURL;
   String name;

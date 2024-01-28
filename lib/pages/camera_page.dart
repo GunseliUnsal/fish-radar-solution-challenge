@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:fish_radar/constants/colors.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:fish_radar/demos/home_page_card.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';

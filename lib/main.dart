@@ -1,6 +1,5 @@
 import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/demos/navigator.dart';
-import 'package:fish_radar/pages/map_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

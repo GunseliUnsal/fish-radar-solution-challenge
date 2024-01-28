@@ -1,6 +1,6 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:fish_radar/pages/camera_page.dart';
-import 'package:fish_radar/pages/fish_page.dart';
+import 'package:fish_radar/pages/fish_list_page.dart';
 import 'package:fish_radar/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
           fishDescription:
               "Pomacanthus xanthometopon grows to a maximum length of 38 centimetres (15 in) and is laterally compressed. The mouth is just..."),
       const CameraPage(),
-      const FishPage(),
+      const FishListPage(),
     ];
 
     return Scaffold(

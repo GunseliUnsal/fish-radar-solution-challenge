@@ -68,34 +68,36 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                             child: Stack(
                               alignment: Alignment.topRight,
                               children: [
-                                CachedNetworkImage(
-                                  colorBlendMode: BlendMode.darken,
-                                  alignment: Alignment.topRight,
-                                  fadeInCurve: Curves.easeIn,
-                                  imageUrl: widget.fish.imgSrcSet!.x2 ??
-                                      widget.fish.imgSrcSet!.x1_5 ??
-                                      "",
-                                  placeholder: (context, url) => Image.asset(
-                                    "assets/png/placeholder.png",
-                                    fit: BoxFit.fitWidth,
-                                  ), // Placeholder widget
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                    "assets/png/placeholder.png",
-                                    fit: BoxFit.fitWidth,
-                                  ), // Error widget if image fails to load
-                                  height: 130,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: CachedNetworkImage(
+                                    colorBlendMode: BlendMode.darken,
+                                    alignment: Alignment.topRight,
+                                    fadeInCurve: Curves.easeIn,
+                                    imageUrl: widget.fish.imgSrcSet!.x2 ??
+                                        widget.fish.imgSrcSet!.x1_5 ??
+                                        "",
+                                    placeholder: (context, url) => Image.asset(
+                                      "assets/png/placeholder.png",
+                                      fit: BoxFit.fitWidth,
+                                    ), // Placeholder widget
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                      "assets/png/placeholder.png",
+                                      fit: BoxFit.fitWidth,
+                                    ), // Error widget if image fails to load
+                                    height: 130,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                                 ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
@@ -138,7 +140,7 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                         Container(
                           alignment: Alignment.center,
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
+                            padding: const EdgeInsets.fromLTRB(6, 0, 6, 12),
                             child: Text(
                               widget.fish.name,
                               textAlign: TextAlign.center,

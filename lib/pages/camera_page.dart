@@ -73,12 +73,30 @@ class _CameraPageState extends State<CameraPage> {
           ]
         }
       ],
-      "generationConfig": {"temperature": 0.4, "topK": 32, "topP": 1, "maxOutputTokens": 4096, "stopSequences": []},
+      "generationConfig": {
+        "temperature": 0.4,
+        "topK": 32,
+        "topP": 1,
+        "maxOutputTokens": 4096,
+        "stopSequences": []
+      },
       "safetySettings": [
-        {"category": "HARM_CATEGORY_HARASSMENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-        {"category": "HARM_CATEGORY_HATE_SPEECH", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-        {"category": "HARM_CATEGORY_SEXUALLY_EXPLICIT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"},
-        {"category": "HARM_CATEGORY_DANGEROUS_CONTENT", "threshold": "BLOCK_MEDIUM_AND_ABOVE"}
+        {
+          "category": "HARM_CATEGORY_HARASSMENT",
+          "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+        },
+        {
+          "category": "HARM_CATEGORY_HATE_SPEECH",
+          "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+        },
+        {
+          "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+          "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+        },
+        {
+          "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+          "threshold": "BLOCK_MEDIUM_AND_ABOVE"
+        }
       ]
     });
     http.Response response = await http.post(
@@ -89,7 +107,8 @@ class _CameraPageState extends State<CameraPage> {
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonBody = json.decode(response.body);
       setState(() {
-        _responseBody = jsonBody["candidates"][0]["content"]["parts"][0]["text"];
+        _responseBody =
+            jsonBody["candidates"][0]["content"]["parts"][0]["text"];
         _isSending = false;
       });
       print(response.body);
@@ -99,6 +118,7 @@ class _CameraPageState extends State<CameraPage> {
       });
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

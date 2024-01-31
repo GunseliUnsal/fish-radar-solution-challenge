@@ -72,13 +72,13 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                       children: <Widget>[
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Stack(
-                                alignment: Alignment.topRight,
-                                children: [
-                                  CachedNetworkImage(
+                            padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                            child: Stack(
+                              alignment: Alignment.topRight,
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: CachedNetworkImage(
                                     colorBlendMode: BlendMode.darken,
                                     alignment: Alignment.topRight,
                                     fadeInCurve: Curves.easeIn,
@@ -98,49 +98,49 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                                     width: double.infinity,
                                     fit: BoxFit.cover,
                                   ),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      color: Colors.black12,
-                                      child: IconButton(
-                                        alignment: Alignment.topRight,
-                                        icon: Icon(
-                                          isFavorite
-                                              ? Icons.favorite
-                                              : Icons.favorite_border,
-                                          size: 15,
-                                          color: Colors.red,
-                                        ),
-                                        onPressed: () async {
-                                          if (isFavorite) {
-                                            await box.delete(widget.fish.id);
-                                          } else {
-                                            await box.put(
-                                              widget.fish.id,
-                                              FavoriteFish(
-                                                id: widget.fish.id,
-                                                name: widget.fish.name,
-                                                img: widget.fish.imgSrcSet!.x2 ??
-                                                    widget.fish.imgSrcSet!.x1_5 ??
-                                                    "",
-                                              ),
-                                            );
-                                          }
-                                        },
+                                ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: Container(
+                                    width: 30,
+                                    height: 30,
+                                    color: Colors.black12,
+                                    child: IconButton(
+                                      alignment: Alignment.topRight,
+                                      icon: Icon(
+                                        isFavorite
+                                            ? Icons.favorite
+                                            : Icons.favorite_border,
+                                        size: 15,
+                                        color: Colors.red,
                                       ),
+                                      onPressed: () async {
+                                        if (isFavorite) {
+                                          await box.delete(widget.fish.id);
+                                        } else {
+                                          await box.put(
+                                            widget.fish.id,
+                                            FavoriteFish(
+                                              id: widget.fish.id,
+                                              name: widget.fish.name,
+                                              img: widget.fish.imgSrcSet!.x2 ??
+                                                  widget.fish.imgSrcSet!.x1_5 ??
+                                                  "",
+                                            ),
+                                          );
+                                        }
+                                      },
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
                         Container(
                           alignment: Alignment.center,
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
+                            padding: const EdgeInsets.fromLTRB(6, 0, 6, 12),
                             child: Text(
                               widget.fish.name,
                               textAlign: TextAlign.center,

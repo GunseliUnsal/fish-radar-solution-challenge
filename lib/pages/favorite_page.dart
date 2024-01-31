@@ -1,24 +1,26 @@
+import 'package:fish_radar/api/db/hive_model.dart';
 import 'package:fish_radar/api/model/fish_model.dart';
 import 'package:fish_radar/api/services/api_service.dart';
 import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/demos/card_shimmer.dart';
+import 'package:fish_radar/pages/fish_list_page.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:hive/hive.dart'; // Import the hive package
 import 'fish_card.dart';
 import 'endangered_fish.dart';
 
-class FishListPage extends StatefulWidget {
+class FavoritePage extends StatefulWidget {
   @override
-  _FishListPageState createState() => _FishListPageState();
+  _FavoritePageState createState() => _FavoritePageState();
 }
 
-class _FishListPageState extends State<FishListPage> {
-  ApiService apiService = ApiService();
+class _FavoritePageState extends State<FavoritePage> {
   final TextEditingController searchController = TextEditingController();
-  List<FishModel> originalFishList = [];
-  List<FishModel> items = [];
+  List<FavoriteFish> originalFishList = [];
+  List<FavoriteFish> items = [];
   bool isLoading = true;
   final FocusNode _searchFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -31,7 +33,12 @@ class _FishListPageState extends State<FishListPage> {
       // Simulate delay for API call
       await Future.delayed(Duration(seconds: 1));
 
-      List<FishModel> fishList = await apiService.fetchFishData();
+      // Open Hive box where favorite fish data is stored
+      final box = await Hive.box<FavoriteFish>('favorites');
+
+      // Retrieve data from Hive box
+      List<FavoriteFish> fishList = box.values.toList();
+
       setState(() {
         originalFishList = fishList;
         items = fishList;
@@ -76,9 +83,13 @@ class _FishListPageState extends State<FishListPage> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: backgroundColor,
+        automaticallyImplyLeading: true,
         centerTitle: true,
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
         title: const Text(
-          'Fish Species',
+          'Favorite Fish',
           style: TextStyle(color: Colors.white),
         ),
       ),
@@ -117,30 +128,18 @@ class _FishListPageState extends State<FishListPage> {
                     itemBuilder: (context, index) {
                       var currentFish = items[index];
                       return currentFish != null
-                          ? EndangeredFishCard(fish: currentFish)
+                          ? EndangeredFishCard(
+                              fish: FishModel(
+                                  id: currentFish.id,
+                                  name: currentFish.name,
+                                  url: "",
+                                  imgSrcSet: ImgSrcSet(x1_5: currentFish.img)))
                           : Container();
                     },
                   ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class ShimmerGridList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 12.0,
-        mainAxisSpacing: 12.0,
-      ),
-      itemCount: 12, // Set the number of grid items
-      itemBuilder: (context, index) {
-        return shimmerCard();
-      },
     );
   }
 }

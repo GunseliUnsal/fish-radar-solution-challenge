@@ -37,10 +37,12 @@ class _NavigatorPageState extends State<NavigatorPage> {
     ];
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
-        children: List.generate(bottomBarPages.length, (index) => bottomBarPages[index]),
+        children: List.generate(
+            bottomBarPages.length, (index) => bottomBarPages[index]),
       ),
       extendBody: true,
       bottomNavigationBar: (bottomBarPages.length <= maxCount)

@@ -68,70 +68,72 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Stack(
-                              alignment: Alignment.topRight,
-                              children: [
-                                CachedNetworkImage(
-                                  colorBlendMode: BlendMode.darken,
-                                  alignment: Alignment.topRight,
-                                  fadeInCurve: Curves.easeIn,
-                                  imageUrl: widget.fish.imgSrcSet!.x2 ??
-                                      widget.fish.imgSrcSet!.x1_5 ??
-                                      "",
-                                  placeholder: (context, url) => Image.asset(
-                                    "assets/png/placeholder.png",
-                                    fit: BoxFit.fitWidth,
-                                  ), // Placeholder widget
-                                  errorWidget: (context, url, error) =>
-                                      Image.asset(
-                                    "assets/png/placeholder.png",
-                                    fit: BoxFit.fitWidth,
-                                  ), // Error widget if image fails to load
-                                  height: 130,
-                                  width: double.infinity,
-                                  fit: BoxFit.cover,
-                                ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(100),
-                                  child: Container(
-                                    width: 30,
-                                    height: 30,
-                                    color: Colors.black12,
-                                    child: IconButton(
-                                      alignment: Alignment.topRight,
-                                      icon: Icon(
-                                        isFavorite
-                                            ? Icons.favorite
-                                            : Icons.favorite_border,
-                                        size: 15,
-                                        color: Colors.red,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  CachedNetworkImage(
+                                    colorBlendMode: BlendMode.darken,
+                                    alignment: Alignment.topRight,
+                                    fadeInCurve: Curves.easeIn,
+                                    imageUrl: widget.fish.imgSrcSet!.x2 ??
+                                        widget.fish.imgSrcSet!.x1_5 ??
+                                        "",
+                                    placeholder: (context, url) => Image.asset(
+                                      "assets/png/placeholder.png",
+                                      fit: BoxFit.fitWidth,
+                                    ), // Placeholder widget
+                                    errorWidget: (context, url, error) =>
+                                        Image.asset(
+                                      "assets/png/placeholder.png",
+                                      fit: BoxFit.fitWidth,
+                                    ), // Error widget if image fails to load
+                                    height: 130,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Container(
+                                      width: 30,
+                                      height: 30,
+                                      color: Colors.black12,
+                                      child: IconButton(
+                                        alignment: Alignment.topRight,
+                                        icon: Icon(
+                                          isFavorite
+                                              ? Icons.favorite
+                                              : Icons.favorite_border,
+                                          size: 15,
+                                          color: Colors.red,
+                                        ),
+                                        onPressed: () async {
+                                          if (isFavorite) {
+                                            await box.delete(widget.fish.id);
+                                          } else {
+                                            await box.put(
+                                              widget.fish.id,
+                                              FavoriteFish(
+                                                id: widget.fish.id,
+                                                name: widget.fish.name,
+                                                img: widget.fish.imgSrcSet!.x2 ??
+                                                    widget.fish.imgSrcSet!.x1_5 ??
+                                                    "",
+                                              ),
+                                            );
+                                          }
+                                        },
                                       ),
-                                      onPressed: () async {
-                                        if (isFavorite) {
-                                          await box.delete(widget.fish.id);
-                                        } else {
-                                          await box.put(
-                                            widget.fish.id,
-                                            FavoriteFish(
-                                              id: widget.fish.id,
-                                              name: widget.fish.name,
-                                              img: widget.fish.imgSrcSet!.x2 ??
-                                                  widget.fish.imgSrcSet!.x1_5 ??
-                                                  "",
-                                            ),
-                                          );
-                                        }
-                                      },
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),

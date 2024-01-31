@@ -11,20 +11,22 @@ Widget shimmerCard() {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  Container(
-                      color: Color.fromARGB(31, 105, 105, 105),
-                      height: 130,
-                      width: double.infinity),
-                ],
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                        color: Color.fromARGB(31, 105, 105, 105),
+                        height: 130,
+                        width: double.infinity),
+                  ],
+                ),
               ),
             ),
           ),

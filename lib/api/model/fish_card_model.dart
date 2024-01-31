@@ -1,4 +1,4 @@
-class FishCard {
+class FishCardModel {
   String imageURL;
   String name;
   String description;
@@ -6,7 +6,7 @@ class FishCard {
 
   final Function() onTap;
 
-  FishCard({
+  FishCardModel({
     required this.imageURL,
     required this.name,
     required this.description,

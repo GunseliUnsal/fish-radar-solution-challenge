@@ -65,4 +65,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/png/
+    - assets/fish.json
     # Add more assets if needed

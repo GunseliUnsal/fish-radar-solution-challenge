@@ -3,11 +3,11 @@ import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/demos/text_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'fish_card.dart';
+import '../api/model/fish_card_model.dart';
 import 'package:google_gemini/google_gemini.dart';
 
 class FishDetailPage extends StatefulWidget {
-  final FishCard fishCard;
+  final FishCardModel fishCard;
   FishDetailPage({Key? key, required this.fishCard}) : super(key: key);
 
   @override

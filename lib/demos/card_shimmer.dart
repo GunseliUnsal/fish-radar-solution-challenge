@@ -23,7 +23,7 @@ Widget shimmerCard() {
                   children: [
                     Container(
                         color: Color.fromARGB(31, 105, 105, 105),
-                        height: 130,
+                        height: double.maxFinite,
                         width: double.infinity),
                   ],
                 ),

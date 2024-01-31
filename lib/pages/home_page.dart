@@ -2,6 +2,7 @@ import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_not
 import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/pages/map_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fish_radar/pages/favorite_page.dart';
 import 'package:fish_radar/demos/home_page_card.dart';
 
 class HomePage extends StatefulWidget {
@@ -70,7 +71,10 @@ class _HomePageState extends State<HomePage> {
                   subtitleText: 'Open Google maps',
                   leadingIcon: const Icon(Icons.map_sharp),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MapPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MapPage()));
                   },
                 ),
                 HomePageCard(
@@ -78,7 +82,10 @@ class _HomePageState extends State<HomePage> {
                   subtitleText: 'See your favorite fish',
                   leadingIcon: const Icon(Icons.favorite_border_outlined),
                   onTap: () {
-                    print("3 kart");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FavoritePage()));
                   },
                 ),
               ],
@@ -104,10 +111,12 @@ class _FishDescription extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width - 40, // Ekran genişliği - padding
+            width: MediaQuery.of(context).size.width -
+                40, // Ekran genişliği - padding
             child: Text(
               fishDescription,
-              style: TextStyle(color: whiteColor.withOpacity(0.8), fontSize: 14),
+              style:
+                  TextStyle(color: whiteColor.withOpacity(0.8), fontSize: 14),
               overflow: TextOverflow.ellipsis,
               maxLines: 3, // İstediğiniz satır sayısı
             ),

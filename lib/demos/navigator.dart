@@ -33,7 +33,7 @@ class _NavigatorPageState extends State<NavigatorPage> {
           fishDescription:
               "Pomacanthus xanthometopon grows to a maximum length of 38 centimetres (15 in) and is laterally compressed. The mouth is just..."),
       const CameraPage(),
-      const FishListPage(),
+      FishListPage(),
     ];
 
     return Scaffold(

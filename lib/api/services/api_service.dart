@@ -2,6 +2,7 @@
 import 'dart:convert';
 import 'package:fish_radar/api/model/fish_model.dart';
 import 'package:fish_radar/api/utils/constants.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -18,9 +19,15 @@ class ApiService {
     );
     if (response.statusCode == 200) {
       try {
-        List<dynamic> jsonList = jsonDecode(response.body.toString());
-        List<FishModel> fishList = jsonList.map((e) => FishModel.fromJson(e)).toList();
-        return fishList;
+        if (response.body != null) {
+          List<dynamic> jsonList = jsonDecode(response.body.toString());
+          List<FishModel> fishList =
+              jsonList.map((e) => FishModel.fromJson(e)).toList();
+          return fishList;
+        } else {
+          print("Error: JSON data is not a List");
+          return [];
+        }
       } catch (e) {
         print("Error decoding JSON: $e");
         return [];

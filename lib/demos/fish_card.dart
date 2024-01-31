@@ -5,19 +5,20 @@ import 'package:fish_radar/api/utils/constants.dart';
 import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/demos/card_shimmer.dart';
 import 'package:flutter/material.dart';
-import 'package:fish_radar/pages/fish_card.dart';
+import 'package:fish_radar/api/model/fish_card_model.dart';
 import 'package:fish_radar/pages/fish_detail_page.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:shimmer/shimmer.dart';
 
-class EndangeredFishCard extends StatefulWidget {
-  const EndangeredFishCard({super.key, required this.fish});
+
+class FishCard extends StatefulWidget {
+  const FishCard({super.key, required this.fish});
   final FishModel fish;
   @override
-  State<EndangeredFishCard> createState() => _EndangeredFishCard();
+  State<FishCard> createState() => _FishCard();
 }
 
-class _EndangeredFishCard extends State<EndangeredFishCard> {
+class _FishCard extends State<FishCard> {
   late Future<Box<FavoriteFish>> _boxFuture;
 
   @override
@@ -43,7 +44,7 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => FishDetailPage(
-                    fishCard: FishCard(
+                    fishCard: FishCardModel(
                       imageURL: widget.fish.imgSrcSet!.x2 ??
                           widget.fish.imgSrcSet!.x1_5 ??
                           "gggg", // Use the appropriate image URL
@@ -92,9 +93,9 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                                     errorWidget: (context, url, error) =>
                                         Image.asset(
                                       "assets/png/placeholder.png",
-                                      fit: BoxFit.fitWidth,
+                                      fit: BoxFit.cover,
                                     ), // Error widget if image fails to load
-                                    height: 130,
+                                    height: double.maxFinite,
                                     width: double.infinity,
                                     fit: BoxFit.cover,
                                   ),
@@ -139,8 +140,9 @@ class _EndangeredFishCard extends State<EndangeredFishCard> {
                         ),
                         Container(
                           alignment: Alignment.center,
+                          height: 30,
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB(6, 0, 6, 12),
+                            padding: const EdgeInsets.fromLTRB(6, 0, 6, 0),
                             child: Text(
                               widget.fish.name,
                               textAlign: TextAlign.center,

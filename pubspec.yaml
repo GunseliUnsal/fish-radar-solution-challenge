@@ -66,4 +66,5 @@ flutter:
   assets:
     - assets/png/
     - assets/fish.json
+    - assets/images/
     # Add more assets if needed

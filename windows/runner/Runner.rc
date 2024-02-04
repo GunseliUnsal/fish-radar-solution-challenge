@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "fish_radar" "\0"
+            VALUE "FileDescription", "fish_radar_sc" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "fish_radar" "\0"
+            VALUE "InternalName", "fish_radar_sc" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "fish_radar.exe" "\0"
-            VALUE "ProductName", "fish_radar" "\0"
+            VALUE "OriginalFilename", "fish_radar_sc.exe" "\0"
+            VALUE "ProductName", "fish_radar_sc" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

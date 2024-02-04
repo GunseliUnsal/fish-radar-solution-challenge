@@ -17,6 +17,7 @@ class ApiService {
         'X-RapidAPI-Host': Constants.API_HOST,
       },
     );
+
     if (response.statusCode == 200) {
       try {
         if (response.body != null) {
@@ -25,34 +26,26 @@ class ApiService {
               jsonList.map((e) => FishModel.fromJson(e)).toList();
           return fishList;
         } else {
-          print("Error: JSON data is not a List");
-          return [];
+          final String response =
+              await rootBundle.loadString('assets/fish.json');
+          List<dynamic> jsonList = jsonDecode(response);
+          List<FishModel> fishListOffline =
+              jsonList.map((e) => FishModel.fromJson(e)).toList();
+          return fishListOffline;
         }
       } catch (e) {
-        print("Error decoding JSON: $e");
-        return [];
+        final String response = await rootBundle.loadString('assets/fish.json');
+        List<dynamic> jsonList = jsonDecode(response);
+        List<FishModel> fishListOffline =
+            jsonList.map((fish) => FishModel.fromJson(fish)).toList();
+        return fishListOffline;
       }
     } else {
-      print("Error: Non-200 status code - ${response.statusCode}");
-      return [];
+      final String response = await rootBundle.loadString('assets/fish.json');
+      List<dynamic> jsonList = jsonDecode(response);
+      List<FishModel> fishListOffline =
+          jsonList.map((e) => FishModel.fromJson(e)).toList();
+      return fishListOffline;
     }
-
-    /*try {
-        if (response.body != null) {
-          List myList = jsonDecode(response.body);
-            return myList.map((e) => FishModel.fromJson(e)).toList();
-          } 
-        } else {
-          print("Error: JSON data is not a List");
-          return [];
-        }
-      } catch (e) {
-        print("Error decoding JSON: $e");
-        return [];
-      }
-    } else {
-      print("Error: Non-200 status code - ${response.statusCode}");
-      return [];
-    }*/
   }
 }

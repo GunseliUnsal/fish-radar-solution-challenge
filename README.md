@@ -1,4 +1,4 @@
-# fish_radar
+# fish_radar_sc
 
 A new Flutter project.
 

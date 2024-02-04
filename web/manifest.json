@@ -1,6 +1,6 @@
 {
-    "name": "fish_radar",
-    "short_name": "fish_radar",
+    "name": "fish_radar_sc",
+    "short_name": "fish_radar_sc",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

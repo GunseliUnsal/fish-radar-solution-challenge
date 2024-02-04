@@ -19,12 +19,28 @@ dependencies:
   lottie: ^3.0.0
   cached_network_image: ^3.3.1
   flutter_native_splash: ^2.3.9
+  http: ^1.2.0
   
+  percent_indicator: ^4.0.1
+  shared_preferences: ^2.0.9
 
   #gemini
-  image_picker: ^1.0.6
-  image_cropper: ^1.4.1
-  http: ^1.2.0
+  image_picker: ^1.0.7
+  image_cropper: ^5.0.1
+
+  #hive local database
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  #shimmer
+  shimmer: ^2.0.0
+
+  google_gemini: ^0.1.2
+  flutter_widget_from_html: ^0.14.11
+  provider: ^6.1.1
+  geolocator: ^10.1.0
+  location: ^5.0.3
+  
 
 dev_dependencies:
   flutter_test:
@@ -32,6 +48,9 @@ dev_dependencies:
 
   flutter_launcher_icons: "^0.13.1"
   flutter_lints: ^3.0.1
+  # hive 
+  hive_generator: ^2.0.1
+  build_runner: ^2.1.2
 
   #app icon
 flutter_launcher_icons:
@@ -53,4 +72,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/png/
+    - assets/fish.json
+    - assets/raw/loadinglocation.json
     # Add more assets if needed

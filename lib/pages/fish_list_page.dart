@@ -1,13 +1,11 @@
 import 'package:fish_radar/api/model/fish_model.dart';
 import 'package:fish_radar/api/services/api_service.dart';
 import 'package:fish_radar/constants/colors.dart';
+import 'package:fish_radar/demos/card_shimmer.dart';
 import 'package:flutter/material.dart';
-import 'fish_card.dart';
-import 'endangered_fish.dart';
-
-import 'package:fish_radar/fishdetails/sea_bass.dart';
-import 'package:fish_radar/fishdetails/gilthead_sea_bream.dart';
-import 'package:fish_radar/fishdetails/carol_fish.dart';
+import 'package:shimmer/shimmer.dart';
+import '../api/model/fish_card_model.dart';
+import '../demos/fish_card.dart';
 
 class FishListPage extends StatefulWidget {
   @override
@@ -15,279 +13,134 @@ class FishListPage extends StatefulWidget {
 }
 
 class _FishListPageState extends State<FishListPage> {
-  List<FishCard> fishcardlar = [
-    FishCard(
-      imageURL:
-          'assets/fish_pic/seabass.jpeg', //bide buralarda benim yüklediğim fotoğraflar gözükmüyor
-      name: 'Sea Bass',
-      description:
-          'Sea bass is a delicious sea fish that lives in cold and temperate waters.',
-      onTap: () {
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => SeaBassPage()));
-        /*Gunseli burada Fish Detail kısımlarına gitmek için onTap içine yolu
-        tanımladım ama context kısmında hata veriyor. Başka kodlar fln denedik
-        ama doğru çözümü bulamadık.
-        */
-      },
-    ),
-    FishCard(
-      imageURL: 'assets/fish_pic/giltheadsea.jpg',
-      name: 'Gilthead Sea Bream',
-      description:
-          'Sea bream is a popular marine fish that lives in warm and temperate seas. ',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'assets/fish_pic/carolfish.png',
-      name: 'Coral (Grouper)',
-      description: 'It feeds on corals, other fish, crustaceans and seafood. ',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 4',
-      description: 'Description of Fish 4',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 5',
-      description: 'Description of Fish 5',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 6',
-      description: 'Description of Fish 6',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 7',
-      description: 'Description of Fish 7',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 8',
-      description: 'Description of Fish 8',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 9',
-      description: 'Description of Fish 9',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 10',
-      description: 'Description of Fish 10',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 11',
-      description: 'Description of Fish 11',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 12',
-      description: 'Description of Fish 12',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 13',
-      description: 'Description of Fish 13',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 14',
-      description: 'Description of Fish 14',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 15',
-      description: 'Description of Fish 15',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 16',
-      description: 'Description of Fish 16',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 17',
-      description: 'Description of Fish 17',
-      onTap: () {},
-    ),
-    FishCard(
-      imageURL: 'https://example.com/image1.jpg',
-      name: 'Fish 18',
-      description: 'Description of Fish 18',
-      onTap: () {},
-    ),
-  ];
-  List<FishCard> filteredFishCards = [];
-
   ApiService apiService = ApiService();
+  final TextEditingController searchController = TextEditingController();
+  List<FishModel> originalFishList = [];
+  List<FishModel> items = [];
+  bool isLoading = true;
+  final FocusNode _searchFocusNode = FocusNode();
+  @override
+  void initState() {
+    super.initState();
+    searchController.addListener(queryListener);
+    fetchFishData();
+  }
+
+  Future<void> fetchFishData() async {
+    try {
+      // Simulate delay for API call
+      await Future.delayed(Duration(seconds: 1));
+
+      List<FishModel> fishList = await apiService.fetchFishData();
+      setState(() {
+        originalFishList = fishList;
+        items = fishList;
+        isLoading = false;
+      });
+    } catch (error) {
+      // Handle errors during data fetching
+      print("Error fetching fish data: $error");
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void search(String query) {
+    setState(() {
+      if (query.isEmpty) {
+        items = List.from(originalFishList); // Reset to original list
+      } else {
+        items = originalFishList
+            .where((element) =>
+                element.name.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      }
+    });
+  }
+
+  void queryListener() {
+    search(searchController.text);
+  }
+
+  @override
+  void dispose() {
+    searchController.removeListener(queryListener);
+    searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder<List<FishModel>>(
-        future: apiService.fetchFishData(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          } else {
-            List<FishModel>? fishList = snapshot.data;
-            debugPrint(fishList.toString());
-
-            if (fishList != null && fishList.isNotEmpty) {
-              return ListView.builder(
-                itemCount: fishList.length,
-                itemBuilder: (context, index) {
-                  FishModel? currentFish = fishList[index];
-                  if (currentFish != null) {
-                    return EndangeredFishCard(fish: currentFish);
-                  } else {
-                    // Handle the case where currentFish is null
-                    return Container(); // You can return an empty container or handle it differently.
-                  }
-                },
-              );
-            } else {
-              return const Center(
-                child: Text(
-                  'No fish data available.',
-                  style: TextStyle(color: Colors.white),
-                ),
-              );
-            }
-          }
-        },
-      ),
-    );
-
-    /*return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: backgroundColor,
-        title: TextField(
-          onChanged: (value) {
-            setState(() {
-              filteredFishCards = fishcardlar
-                  .where((fishCard) =>
-                      fishCard.name.toLowerCase().contains(value.toLowerCase()))
-                  .toList();
-            });
-          },
-          decoration: InputDecoration(
-            hintText: 'Search...',
-            prefixIcon: Icon(Icons.search),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            filled: true,
-            fillColor: Colors.white,
-          ),
+        centerTitle: true,
+        title: const Text(
+          'Fish Species',
+          style: TextStyle(color: Colors.white),
         ),
       ),
-      body: Container(
-        color: backgroundColor,
-        child: Column(
-          children: [
-            EndangeredFishCard(),
-            Divider(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: filteredFishCards.isEmpty
-                    ? fishcardlar.length
-                    : filteredFishCards.length,
-                itemBuilder: (BuildContext context, int index) {
-                  FishCard fishCard = filteredFishCards.isEmpty
-                      ? fishcardlar[index]
-                      : filteredFishCards[index];
-
-                  return Card(
-                    color: whiteColor,
-                    child: InkWell(
-                      /*onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                FishDetailPage(fishCard: fishCard),
-                          ),
-                        );
-                      },
-                       */
-                      child: Stack(
-                        children: [
-                          ListTile(
-                            leading: Container(
-                              width: 80,
-                              height: 80,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    fishCard.imageURL,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            title: Text(
-                              fishCard.name,
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            subtitle: Text(fishCard.description),
-                          ),
-                          Positioned(
-                            top: 8,
-                            left: 8,
-                            child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  fishCard.isFavorite = !fishCard.isFavorite;
-                                });
-                              },
-                              child: Icon(
-                                fishCard.isFavorite
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: fishCard.isFavorite ? Colors.red : null,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: SearchBar(
+              controller: searchController,
+              focusNode: _searchFocusNode,
+              backgroundColor: MaterialStateProperty.resolveWith((states) {
+                // If the button is pressed, return green, otherwise blue
+                if (states.contains(MaterialState.pressed)) {
+                  return Colors.white;
+                }
+                return Colors.white;
+              }),
+              leading: IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.search),
               ),
+              hintText: "Search fish...",
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: isLoading
+                ? ShimmerGridList()
+                : GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 8.0,
+                      mainAxisSpacing: 8.0,
+                    ),
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      var currentFish = items[index];
+                      return currentFish != null
+                          ? FishCard(fish: currentFish)
+                          : Container();
+                    },
+                  ),
+          ),
+        ],
       ),
-    );*/
+    );
+  }
+}
+
+class ShimmerGridList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 12.0,
+        mainAxisSpacing: 12.0,
+      ),
+      itemCount: 12, // Set the number of grid items
+      itemBuilder: (context, index) {
+        return shimmerCard();
+      },
+    );
   }
 }

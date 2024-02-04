@@ -1,17 +1,21 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:fish_radar/api/model/fish_card_model.dart';
 import 'package:fish_radar/constants/colors.dart';
+import 'package:fish_radar/demos/text_shimmer.dart';
+import 'package:fish_radar/pages/education_page.dart';
+import 'package:fish_radar/pages/fish_detail_page.dart';
 import 'package:fish_radar/pages/map_page.dart';
 import 'package:flutter/material.dart';
+import 'package:fish_radar/pages/favorite_page.dart';
 import 'package:fish_radar/demos/home_page_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
-      {Key? key,
+      {super.key,
       required this.fishDescription,
       required this.fishTitle,
       required this.pageController,
-      required this.notchBottomBarController})
-      : super(key: key);
+      required this.notchBottomBarController});
 
   final String fishDescription;
   final String fishTitle;
@@ -31,12 +35,24 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           SizedBox(
-            height: 300,
-            width: 400,
+            width: double.infinity,
             child: GestureDetector(
               onTap: () {
-                widget.pageController.jumpToPage(2);
-                widget.notchBottomBarController.jumpTo(2);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FishDetailPage(
+                      fishCard: FishCardModel(
+                        imageURL: image, // Use the appropriate image URL
+                        name: widget.fishTitle,
+                        description: '',
+                        onTap: () {
+                          // Handle tap action if needed
+                        },
+                      ),
+                    ),
+                  ),
+                );
               },
               child: Stack(
                 children: [
@@ -44,7 +60,6 @@ class _HomePageState extends State<HomePage> {
                     image,
                     fit: BoxFit.cover,
                     width: double.infinity,
-                    height: double.infinity,
                   ),
                   _FishTitle(
                     fishTitle: widget.fishTitle,
@@ -52,25 +67,38 @@ class _HomePageState extends State<HomePage> {
                   _FishDescription(
                     fishDescription: widget.fishDescription,
                   ),
+                  /*const Positioned(
+                      bottom: 0,
+                      left: 10,
+                      child: ShimmerColumnWidget(count: 3)),*/
                 ],
               ),
             ),
           ),
           Expanded(
             child: ListView(
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 HomePageCard(
                   titleText: 'LEARN HOW TO SAVE OCEAN',
                   subtitleText: 'Use our module',
                   leadingIcon: const Icon(Icons.school_outlined),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EducationPage()));
+                  },
                 ),
                 HomePageCard(
                   titleText: 'FIND FISHES AROUND YOU',
                   subtitleText: 'Open Google maps',
                   leadingIcon: const Icon(Icons.map_sharp),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const MapPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MapPage()));
                   },
                 ),
                 HomePageCard(
@@ -78,7 +106,10 @@ class _HomePageState extends State<HomePage> {
                   subtitleText: 'See your favorite fish',
                   leadingIcon: const Icon(Icons.favorite_border_outlined),
                   onTap: () {
-                    print("3 kart");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FavoritePage()));
                   },
                 ),
               ],
@@ -104,10 +135,12 @@ class _FishDescription extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width - 40, // Ekran genişliği - padding
+            width: MediaQuery.of(context).size.width -
+                40, // Ekran genişliği - padding
             child: Text(
               fishDescription,
-              style: TextStyle(color: whiteColor.withOpacity(0.8), fontSize: 14),
+              style:
+                  TextStyle(color: whiteColor.withOpacity(0.8), fontSize: 14),
               overflow: TextOverflow.ellipsis,
               maxLines: 3, // İstediğiniz satır sayısı
             ),

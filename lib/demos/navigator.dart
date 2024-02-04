@@ -1,13 +1,13 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:fish_radar/demos/camera_state.dart';
 import 'package:fish_radar/pages/camera_page.dart';
 import 'package:fish_radar/pages/fish_list_page.dart';
 import 'package:fish_radar/pages/home_page.dart';
 import 'package:flutter/material.dart';
-
-import 'package:fish_radar/fishdetails/sea_bass.dart';
+import 'package:provider/provider.dart';
 
 class NavigatorPage extends StatefulWidget {
-  const NavigatorPage({Key? key}) : super(key: key);
+  const NavigatorPage({super.key});
 
   @override
   State<NavigatorPage> createState() => _NavigatorPageState();
@@ -16,7 +16,8 @@ class NavigatorPage extends StatefulWidget {
 class _NavigatorPageState extends State<NavigatorPage> {
   final pageController = PageController(initialPage: 0);
   final _controller = NotchBottomBarController(index: 0);
-
+  final cameraState = CameraState();
+  bool isCameraClicked = false;
   int maxCount = 3;
 
   @override
@@ -34,11 +35,12 @@ class _NavigatorPageState extends State<NavigatorPage> {
           notchBottomBarController: _controller,
           fishDescription:
               "Pomacanthus xanthometopon grows to a maximum length of 38 centimetres (15 in) and is laterally compressed. The mouth is just..."),
-      const CameraPage(),
+      CameraPage(),
       FishListPage(),
     ];
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PageView(
         controller: pageController,
         physics: const NeverScrollableScrollPhysics(),
@@ -95,7 +97,9 @@ class _NavigatorPageState extends State<NavigatorPage> {
                 ),
               ],
               onTap: (index) {
-                pageController.jumpToPage(index);
+                setState(() {
+                  pageController.jumpToPage(index);
+                });
               },
               kIconSize: 24.0,
             )

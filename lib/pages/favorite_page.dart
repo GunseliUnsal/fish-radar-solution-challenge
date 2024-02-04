@@ -6,8 +6,8 @@ import 'package:fish_radar/demos/card_shimmer.dart';
 import 'package:fish_radar/pages/fish_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart'; // Import the hive package
-import '../api/model/fish_card_model.dart';
-import '../demos/fish_card.dart';
+import 'fish_card.dart';
+import 'endangered_fish.dart';
 
 class FavoritePage extends StatefulWidget {
   @override
@@ -128,7 +128,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     itemBuilder: (context, index) {
                       var currentFish = items[index];
                       return currentFish != null
-                          ? FishCard(
+                          ? EndangeredFishCard(
                               fish: FishModel(
                                   id: currentFish.id,
                                   name: currentFish.name,

@@ -1,9 +1,11 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:fish_radar/constants/colors.dart';
+import 'package:fish_radar/demos/module_page_card.dart';
 import 'package:fish_radar/pages/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish_radar/pages/favorite_page.dart';
 import 'package:fish_radar/demos/home_page_card.dart';
+import 'package:fish_radar/pages/education_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
@@ -64,7 +66,9 @@ class _HomePageState extends State<HomePage> {
                   titleText: 'LEARN HOW TO SAVE OCEAN',
                   subtitleText: 'Use our module',
                   leadingIcon: const Icon(Icons.school_outlined),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const EducationPage()));
+                  },
                 ),
                 HomePageCard(
                   titleText: 'FIND FISHES AROUND YOU',

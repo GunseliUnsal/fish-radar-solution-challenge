@@ -1,11 +1,13 @@
 import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
+import 'package:fish_radar/api/model/fish_card_model.dart';
 import 'package:fish_radar/constants/colors.dart';
-import 'package:fish_radar/demos/module_page_card.dart';
+import 'package:fish_radar/demos/text_shimmer.dart';
+import 'package:fish_radar/pages/education_page.dart';
+import 'package:fish_radar/pages/fish_detail_page.dart';
 import 'package:fish_radar/pages/map_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fish_radar/pages/favorite_page.dart';
 import 'package:fish_radar/demos/home_page_card.dart';
-import 'package:fish_radar/pages/education_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage(
@@ -33,12 +35,24 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           SizedBox(
-            height: 300,
-            width: 400,
+            width: double.infinity,
             child: GestureDetector(
               onTap: () {
-                widget.pageController.jumpToPage(2);
-                widget.notchBottomBarController.jumpTo(2);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FishDetailPage(
+                      fishCard: FishCardModel(
+                        imageURL: image, // Use the appropriate image URL
+                        name: widget.fishTitle,
+                        description: '',
+                        onTap: () {
+                          // Handle tap action if needed
+                        },
+                      ),
+                    ),
+                  ),
+                );
               },
               child: Stack(
                 children: [
@@ -46,7 +60,6 @@ class _HomePageState extends State<HomePage> {
                     image,
                     fit: BoxFit.cover,
                     width: double.infinity,
-                    height: double.infinity,
                   ),
                   _FishTitle(
                     fishTitle: widget.fishTitle,
@@ -54,6 +67,10 @@ class _HomePageState extends State<HomePage> {
                   _FishDescription(
                     fishDescription: widget.fishDescription,
                   ),
+                  /*const Positioned(
+                      bottom: 0,
+                      left: 10,
+                      child: ShimmerColumnWidget(count: 3)),*/
                 ],
               ),
             ),
@@ -67,7 +84,10 @@ class _HomePageState extends State<HomePage> {
                   subtitleText: 'Use our module',
                   leadingIcon: const Icon(Icons.school_outlined),
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const EducationPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EducationPage()));
                   },
                 ),
                 HomePageCard(

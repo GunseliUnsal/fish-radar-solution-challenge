@@ -17,7 +17,7 @@ class ModulePageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Expanded(
         child: Padding(
           padding: const EdgeInsets.all(6.0),
           child: SizedBox(
@@ -48,18 +48,20 @@ class ModulePageCard extends StatelessWidget {
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Align(
-                                alignment: Alignment.centerRight,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: rowIcon,
-                                ),
+                      Flexible(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),  //Remove const
+                                      child: rowIcon,
+                                    ),
+                                  ),
                               ),
+                            ],
                           ),
-                        ],
                       )
                     ],
                   ),
@@ -67,7 +69,7 @@ class ModulePageCard extends StatelessWidget {
               ),
             ),
           ),
-        )
+        ),
     );
   }
 }

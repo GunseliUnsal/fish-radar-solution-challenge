@@ -13,9 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  percent_indicator: ^4.0.1
-  shared_preferences: ^2.0.9
-
   cupertino_icons: ^1.0.2
   animated_notch_bottom_bar: ^1.0.0
   google_maps_flutter: ^2.5.3
@@ -23,10 +20,13 @@ dependencies:
   cached_network_image: ^3.3.1
   flutter_native_splash: ^2.3.9
   http: ^1.2.0
-  connectivity: ^3.0.6
+  
+  percent_indicator: ^4.0.1
+  shared_preferences: ^2.0.9
+
   #gemini
-  image_picker: ^1.0.6
-  image_cropper: ^1.4.1
+  image_picker: ^1.0.7
+  image_cropper: ^5.0.1
 
   #hive local database
   hive: ^2.2.3
@@ -34,8 +34,12 @@ dependencies:
 
   #shimmer
   shimmer: ^2.0.0
+
   google_gemini: ^0.1.2
   flutter_widget_from_html: ^0.14.11
+  provider: ^6.1.1
+  geolocator: ^10.1.0
+  location: ^5.0.3
   
 
 dev_dependencies:
@@ -68,4 +72,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/png/
+    - assets/fish.json
+    - assets/raw/loadinglocation.json
+    -  assets/images/
     # Add more assets if needed

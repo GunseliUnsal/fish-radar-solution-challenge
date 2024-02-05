@@ -1,13 +1,19 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
+import 'package:fish_radar/api/utils/constants.dart';
+import 'package:fish_radar/demos/camera_state.dart';
+import 'package:fish_radar/demos/text_shimmer.dart';
+import 'package:google_gemini/google_gemini.dart';
 
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:image_picker/image_picker.dart'
+    as picker; // Using 'as' for alias
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
+// ignore: must_be_immutable
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
 
@@ -20,6 +26,13 @@ class _CameraPageState extends State<CameraPage> {
   String _responseBody = "";
   bool _isSending = false;
   String customPrompt = "";
+  /*final String _geminiQuery =
+      "Which type of fish? First give me the fish name and Tell me about this fish species by using bullet points. In what seasons should I not catch this fish species? If image is not a fish image tell the user. JUST return all answer html body format. ";
+*/
+  final String _geminiQuery =
+      "provide detailed and organized information about the fish in the photo, ONLY return all answers in html body format.";
+
+  final gemini = GoogleGemini(apiKey: Constants.GEMINI_API_KEY);
 
   _openCamera() {
     if (_image == null) {
@@ -28,147 +41,112 @@ class _CameraPageState extends State<CameraPage> {
   }
 
   Future<void> _getImageFromCamera() async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.camera);
+    final XFile? image =
+        await picker.ImagePicker().pickImage(source: picker.ImageSource.camera);
 
     if (image != null) {
       ImageCropper cropper = ImageCropper();
       final croppedImage = await cropper.cropImage(
-          sourcePath: image.path,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.ratio3x2,
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.ratio4x3,
-            CropAspectRatioPreset.ratio16x9
-          ],
-          iosUiSettings: const IOSUiSettings(
-            title: "Cropper",
-          ));
+        sourcePath: image.path,
+        aspectRatioPresets: [
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.original,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9
+        ],
+      );
 
       setState(() {
         _image = croppedImage != null ? XFile(croppedImage.path) : null;
+        sendImage(_image);
       });
     }
   }
 
   Future<void> sendImage(XFile? imagefile) async {
     if (imagefile == null) return;
+
     setState(() {
       _isSending = true;
     });
-    String base64Image = base64Encode(File(imagefile.path).readAsBytesSync());
-    String apiKey = "AIzaSyCFWOYBH2LATmCEkwLAFbnzRJnm5AtS6Ko";
-    String requestBody = json.encode({
-      "contents": [
-        {
-          "parts": [
-            {
-              "text":
-                  "Which type of fish? First give me the fish name and Tell me about this fish species by using bullet points. In what seasons should I not catch this fish species? If image is not a fish image tell the user. "
-            },
-            {
-              "inlineData": {"mimeType": "image/jpeg", "data": base64Image}
-            },
-          ]
-        }
-      ],
-      "generationConfig": {
-        "temperature": 0.4,
-        "topK": 32,
-        "topP": 1,
-        "maxOutputTokens": 4096,
-        "stopSequences": []
-      },
-      "safetySettings": [
-        {
-          "category": "HARM_CATEGORY_HARASSMENT",
-          "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-          "category": "HARM_CATEGORY_HATE_SPEECH",
-          "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-          "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-          "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        },
-        {
-          "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-          "threshold": "BLOCK_MEDIUM_AND_ABOVE"
-        }
-      ]
+
+    gemini
+        .generateFromTextAndImages(
+            query: _geminiQuery, image: File(imagefile.path))
+        .then((value) {
+      setState(() {
+        _responseBody = value.text;
+        print(_responseBody);
+        _isSending = false;
+      });
     });
-    http.Response response = await http.post(
-        Uri.parse(
-            "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro-vision:generateContent?key=$apiKey"),
-        headers: {"Content-Type": "application/json"},
-        body: requestBody);
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonBody = json.decode(response.body);
-      setState(() {
-        _responseBody =
-            jsonBody["candidates"][0]["content"]["parts"][0]["text"];
-        _isSending = false;
-      });
-      print(response.body);
-    } else {
-      setState(() {
-        _isSending = false;
-      });
-    }
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _openCamera();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          SingleChildScrollView(
+    if (_image == null) {
+      return Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
             child: Column(
-              children: <Widget>[
-                const SizedBox(height: 60),
-                _image == null
-                    ? const Center(
-                        child: Text(
-                          "No Image Selected",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      )
-                    : Image.file(File(_image!.path)),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(14, 0, 14, 120),
-                  child: Text(
-                    _responseBody,
-                    style: const TextStyle(fontSize: 16, color: Colors.white),
+              children: [
+                Opacity(
+                  opacity: 0.5, // Set the opacity value as needed
+                  child: Image.asset(
+                    "assets/png/image_not_selected.png",
+                    height: 70,
                   ),
-                )
+                ),
+                const SizedBox(height: 16), // Adjust the spacing as needed
+                const Text(
+                  "No Image Selected",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.w200),
+                ),
               ],
             ),
           ),
-          if (_isSending)
-            Center(
-              child: Lottie.asset(
-                "assets/png/Fish_loading.json",
-                animate: true,
-                height: 150,
-                width: 150,
-              ),
-            )
-        ],
-      ),
-      floatingActionButton: Align(
-        alignment: Alignment.centerRight,
-        child: FloatingActionButton(
-          onPressed: () {
-            _image == null ? _openCamera() : sendImage(_image);
-          },
-          tooltip: _image == null ? "No Image Selected" : "Send image",
-          child: Icon(_image == null ? Icons.camera_alt : Icons.send),
         ),
-      ),
-    );
+      );
+    } else {
+      return Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(child: Image.file(File(_image!.path))),
+              const SizedBox(height: 20),
+              if (!_isSending)
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 16, bottom: 130),
+                  child: Visibility(
+                    visible: !_isSending,
+                    child: HtmlWidget(
+                      _responseBody,
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                  ),
+                )
+              else
+                const ShimmerColumnWidget(count: 20),
+            ],
+          ),
+        ),
+      );
+    }
   }
 }

@@ -4,8 +4,8 @@ import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/demos/card_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'fish_card.dart';
-import 'endangered_fish.dart';
+import '../api/model/fish_card_model.dart';
+import '../demos/fish_card.dart';
 
 class FishListPage extends StatefulWidget {
   @override
@@ -117,7 +117,7 @@ class _FishListPageState extends State<FishListPage> {
                     itemBuilder: (context, index) {
                       var currentFish = items[index];
                       return currentFish != null
-                          ? EndangeredFishCard(fish: currentFish)
+                          ? FishCard(fish: currentFish)
                           : Container();
                     },
                   ),

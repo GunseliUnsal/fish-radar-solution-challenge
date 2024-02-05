@@ -26,26 +26,22 @@ class ApiService {
               jsonList.map((e) => FishModel.fromJson(e)).toList();
           return fishList;
         } else {
-          print("else ERROR");
           final String response =
-              await rootBundle.loadString('assets/sample.json');
+              await rootBundle.loadString('assets/fish.json');
           List<dynamic> jsonList = jsonDecode(response);
           List<FishModel> fishListOffline =
               jsonList.map((e) => FishModel.fromJson(e)).toList();
           return fishListOffline;
         }
       } catch (e) {
-        print("CATCH ERROR");
-        final String response =
-            await rootBundle.loadString('assets/sample.json');
+        final String response = await rootBundle.loadString('assets/fish.json');
         List<dynamic> jsonList = jsonDecode(response);
         List<FishModel> fishListOffline =
             jsonList.map((fish) => FishModel.fromJson(fish)).toList();
         return fishListOffline;
       }
     } else {
-      print("else2 ERROR");
-      final String response = await rootBundle.loadString('assets/sample.json');
+      final String response = await rootBundle.loadString('assets/fish.json');
       List<dynamic> jsonList = jsonDecode(response);
       List<FishModel> fishListOffline =
           jsonList.map((e) => FishModel.fromJson(e)).toList();

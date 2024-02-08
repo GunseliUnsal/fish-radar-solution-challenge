@@ -48,7 +48,7 @@ class ModulePageCard extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios_outlined),
                   ),
-                  Flexible(
+                  Expanded(
                     child: Row(
                       children: [
                         Expanded(
@@ -56,7 +56,7 @@ class ModulePageCard extends StatelessWidget {
                             alignment: Alignment.centerRight,
                             child: Padding(
                               padding:
-                                  const EdgeInsets.all(20.0), //Remove const
+                                  const EdgeInsets.all(16.0), //Remove const
                               child: rowIcon,
                             ),
                           ),

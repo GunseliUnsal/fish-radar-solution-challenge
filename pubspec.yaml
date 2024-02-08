@@ -1,0 +1,84 @@
+name: fish_radar
+
+description: "A new Flutter project."
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  animated_notch_bottom_bar: ^1.0.0
+  google_maps_flutter: ^2.5.3
+  lottie: ^3.0.0
+  cached_network_image: ^3.3.1
+  flutter_native_splash: ^2.3.9
+  http: ^1.2.0
+  
+  percent_indicator: ^4.0.1
+  shared_preferences: ^2.0.9
+  
+  intl: ^0.17.0
+  #gemini
+  image_picker: ^1.0.7
+  image_cropper: ^5.0.1
+
+  #hive local database
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+
+  #shimmer
+  shimmer: ^2.0.0
+
+  google_gemini: ^0.1.2
+  flutter_widget_from_html: ^0.14.11
+  provider: ^6.1.1
+  geolocator: ^10.1.0
+  location: ^5.0.3
+  path_provider: ^2.1.2
+  flutter_rating_bar: ^4.0.1
+  firebase_core: ^2.25.4
+  cloud_firestore: ^4.15.4
+  
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^3.0.1
+  # hive 
+  hive_generator: ^2.0.1
+  build_runner: ^2.1.2
+
+  #app icon
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+ #splash screen
+flutter_native_splash:
+  color: "#192E51"
+  image: assets/png/splash_image.png
+  
+android_12:
+  color: "#192E51"
+  image: assets/png/splash_image.png
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/png/
+    - assets/icon/
+    - assets/fish.json
+    - assets/raw/
+    - assets/images/
+    # Add more assets if needed

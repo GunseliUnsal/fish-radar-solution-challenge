@@ -43,8 +43,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-/macos/runner/GoogleService-Info.plist
-/ios/runner/GoogleService-Info.plist
-/android/app/google-services.json
-/lib/firebase_options.dart
-/lib/api/utils/constants.dart
+#/macos/runner/GoogleService-Info.plist
+#/ios/runner/GoogleService-Info.plist
+#/android/app/google-services.json
+#/lib/firebase_options.dart
+#/lib/api/utils/constants.dart

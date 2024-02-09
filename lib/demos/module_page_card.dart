@@ -18,6 +18,53 @@ class ModulePageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            rowIcon,
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 50, bottom: 8, left: 16, right: 16),
+              child: Text(
+                titleText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: whiteColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.only(top: 0, bottom: 8, left: 16, right: 16),
+              child: Text(
+                subtitleText,
+                textAlign: TextAlign.center,
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                style:
+                    TextStyle(color: whiteColor.withOpacity(0.7), fontSize: 10),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, bottom: 8, left: 16, right: 16),
+              child: ElevatedButton(
+                  onPressed: onTap,
+                  child: Text(
+                    "Read More",
+                    style: TextStyle(color: bottomNavbarColor),
+                  )),
+            )
+          ],
+        ),
+      ),
+    );
+
+    /*Center(
         child: Padding(
       padding: const EdgeInsets.all(6.0),
       child: SizedBox(
@@ -48,7 +95,7 @@ class ModulePageCard extends StatelessWidget {
                     ),
                     trailing: const Icon(Icons.arrow_forward_ios_outlined),
                   ),
-                  Flexible(
+                  Expanded(
                     child: Row(
                       children: [
                         Expanded(
@@ -56,7 +103,7 @@ class ModulePageCard extends StatelessWidget {
                             alignment: Alignment.centerRight,
                             child: Padding(
                               padding:
-                                  const EdgeInsets.all(20.0), //Remove const
+                                  const EdgeInsets.all(16.0), //Remove const
                               child: rowIcon,
                             ),
                           ),
@@ -70,6 +117,6 @@ class ModulePageCard extends StatelessWidget {
           ),
         ),
       ),
-    ));
+    ));*/
   }
 }

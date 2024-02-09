@@ -181,135 +181,143 @@ class _FeedBackState extends State<FeedBack> {
                     width: 300,
                     padding: EdgeInsets.all(16),
                     color: Colors.white,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "How Would You Rate Our App ?",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 16),
-                        RatingBar.builder(
-                          initialRating: initialRate,
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 4.0),
-                          itemBuilder: (context, _) => const Icon(
-                            Icons.star,
-                            color: Colors.amber,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            "How Would You Rate Our App ?",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          onRatingUpdate: (rating) {
-                            initialRate = rating;
-                          },
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          "Please Let us know how can we improve ourselves",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w600),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors
-                                  .grey, // Choose your desired border color
-                              width: 1.0, // Adjust the border width as needed
+                          const SizedBox(height: 16),
+                          RatingBar.builder(
+                            initialRating: initialRate,
+                            minRating: 1,
+                            direction: Axis.horizontal,
+                            allowHalfRating: true,
+                            itemCount: 5,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            itemBuilder: (context, _) => const Icon(
+                              Icons.star,
+                              color: Colors.amber,
                             ),
-                            borderRadius: BorderRadius.circular(
-                                8.0), // Adjust the border radius as needed
+                            onRatingUpdate: (rating) {
+                              initialRate = rating;
+                            },
                           ),
-                          child: TextField(
-                            controller: txt,
-                            maxLength: 500,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 4,
-                            decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.all(
-                                  8.0), // Adjust content padding as needed
-                              hintText:
-                                  'Your Feedback...', // Add any placeholder text if needed
-                              border: InputBorder
-                                  .none, // Remove TextField's default border
+                          const SizedBox(height: 16),
+                          const Text(
+                            "Please Let us know how can we improve ourselves",
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w600),
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors
+                                    .grey, // Choose your desired border color
+                                width: 1.0, // Adjust the border width as needed
+                              ),
+                              borderRadius: BorderRadius.circular(
+                                  8.0), // Adjust the border radius as needed
+                            ),
+                            child: TextField(
+                              controller: txt,
+                              maxLength: 500,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 4,
+                              decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.all(
+                                    8.0), // Adjust content padding as needed
+                                hintText:
+                                    'Your Feedback...', // Add any placeholder text if needed
+                                border: InputBorder
+                                    .none, // Remove TextField's default border
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 16),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.redAccent,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
+                          const SizedBox(height: 16),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        )),
+                                    onPressed: _loading
+                                        ? null
+                                        : () {
+                                            Navigator.pop(context);
+                                          },
+                                    child: Text(
+                                      "Cancel",
+                                      style: TextStyle(color: backgroundColor),
                                     )),
-                                onPressed: _loading
-                                    ? null
-                                    : () {
-                                        Navigator.pop(context);
-                                      },
-                                child: const Text(
-                                  "Cancel",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                            const SizedBox(width: 16),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.greenAccent,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    )),
-                                onPressed: _loading
-                                    ? null
-                                    : () async {
-                                        String message = "";
-                                        if (txt.text.isNotEmpty) {
-                                          _loading = true;
-                                          try {
-                                            final collection = FirebaseFirestore
-                                                .instance
-                                                .collection("feedback");
-                                            await collection.doc().set({
-                                              'timestamp':
-                                                  FieldValue.serverTimestamp(),
-                                              'rate': initialRate,
-                                              'message': txt.text,
-                                            });
-                                            _loading = false;
-                                            message =
-                                                "Feedback sent succesfully";
-                                          } catch (e) {
-                                            print(e);
-                                            _loading = false;
-                                            message =
-                                                "Error when sending Feedback";
-                                          }
+                                const SizedBox(width: 16),
+                                ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor: backgroundColor,
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                        )),
+                                    onPressed: _loading
+                                        ? null
+                                        : () async {
+                                            String message = "";
+                                            if (txt.text.isNotEmpty) {
+                                              _loading = true;
+                                              try {
+                                                final collection =
+                                                    FirebaseFirestore.instance
+                                                        .collection("feedback");
+                                                await collection.doc().set({
+                                                  'timestamp': FieldValue
+                                                      .serverTimestamp(),
+                                                  'rate': initialRate,
+                                                  'message': txt.text,
+                                                });
+                                                _loading = false;
+                                                message =
+                                                    "Feedback sent succesfully";
+                                              } catch (e) {
+                                                print(e);
+                                                _loading = false;
+                                                message =
+                                                    "Error when sending Feedback";
+                                              }
 
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content: Text(message)));
-                                          Navigator.pop(context);
-                                        } else {
-                                          message = "Feedback cannot be empty.";
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                                  content: Text(message)));
-                                        }
-                                      },
-                                child: const Text(
-                                  "Submit",
-                                  style: TextStyle(color: Colors.white),
-                                ))
-                          ],
-                        )
-                      ],
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      content: Text(message)));
+                                              Navigator.pop(context);
+                                            } else {
+                                              message =
+                                                  "Feedback cannot be empty.";
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                      content: Text(message)));
+                                            }
+                                          },
+                                    child: const Text(
+                                      "Submit",
+                                      style: TextStyle(color: Colors.white),
+                                    ))
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

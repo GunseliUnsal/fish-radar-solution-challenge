@@ -12,7 +12,7 @@ Fish Radar is a mobile application developed to protect our oceans and promote s
 ## 📲 How to Download
   For Android User
 
-1. Download the apk file for your mobile version [here](https://github.com/GunseliUnsal/fish-radar-solution-challenge).
+1. Download the apk file for your mobile version [here](https://drive.google.com/file/d/1DbJm2BK1p4i699yx6djMuSJunxrmjnoj/view).
 2. Run the apk file on your phone.
 
 ## 🐠 App Photos

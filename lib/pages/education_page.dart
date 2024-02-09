@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:fish_radar/constants/colors.dart';
 import 'package:fish_radar/demos/module_page_card.dart';
 import 'package:flutter/material.dart';
@@ -59,21 +57,123 @@ class _EducationPageState extends State<EducationPage> {
     });
   }
 
+  final PageController _controller = PageController(viewportFraction: 0.8);
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> items = [
+      ModulePageCard(
+        titleText: 'CLIMATE CHANGE',
+        subtitleText:
+            'In the fight against climate change, a global effort is crucial. Collaborative actions between individuals, communities, and nations are necessary to create sustainable solutions for a better future.',
+        rowIcon: const ImageIcon(
+          AssetImage("assets/icon/climate.png"),
+          color: Colors.white,
+          size: 70,
+        ),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ClimateChange(onComplete: _upgradeProgress)));
+        },
+      ),
+      ModulePageCard(
+        titleText: 'OVERFISHING',
+        subtitleText:
+            'Overcoming the challenges of overfishing requires a collective effort from individuals, communities, and governments. By promoting sustainable practices and raising awareness, we can work towards preserving marine ecosystems for future generations.',
+        rowIcon: const ImageIcon(
+          AssetImage("assets/icon/overfishing.png"),
+          color: Colors.white,
+          size: 70,
+        ),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      Overfishing(onComplete: _upgradeProgress)));
+        },
+      ),
+      ModulePageCard(
+        titleText: 'POLLUTION',
+        subtitleText:
+            'Addressing pollution requires a collective effort at the individual, community, and societal levels. By adopting sustainable practices and advocating for positive change, we can contribute to a healthier and cleaner environment.',
+        rowIcon: const ImageIcon(
+          AssetImage("assets/icon/pollution.png"),
+          color: Colors.white,
+          size: 70,
+        ),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      Pollution(onComplete: _upgradeProgress)));
+        },
+      ),
+      ModulePageCard(
+        titleText: 'HUMAN IMPACT ON COASTAL AREAS',
+        subtitleText:
+            'Human impact on coastal areas is a global concern that requires a holistic approach. By promoting sustainable practices, responsible development, and community involvement, we can work towards preserving the ecological integrity of coastal environments for future generations.',
+        rowIcon: const ImageIcon(
+          AssetImage("assets/icon/humanimpact.png"),
+          color: Colors.white,
+          size: 70,
+        ),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      HumanImpact(onComplete: _upgradeProgress)));
+        },
+      ),
+      ModulePageCard(
+        titleText: 'FOREIGN SPECIES TO SEA CREATURES',
+        subtitleText:
+            'Addressing the introduction of foreign species to sea creatures requires coordinated efforts at the global and local levels. By supporting regulations, practicing responsible behavior, and promoting awareness, individuals can contribute to the preservation of marine biodiversity.',
+        rowIcon: const ImageIcon(
+          AssetImage("assets/icon/fishspecies.png"),
+          color: Colors.white,
+          size: 70,
+        ),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ForeignSpecies(onComplete: _upgradeProgress)));
+        },
+      ),
+      ModulePageCard(
+        titleText: 'SEA TEMPETURE CHANGES',
+        subtitleText:
+            'Addressing sea temperature changes requires a collective effort to reduce human impact on the climate. By promoting sustainability, supporting climate-friendly policies, and raising awareness, individuals can contribute to the preservation of the health and balance of our oceans.',
+        rowIcon: const ImageIcon(
+          AssetImage("assets/icon/watertemperature.png"),
+          color: Colors.white,
+          size: 70,
+        ),
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      SeaTemperature(onComplete: _upgradeProgress)));
+        },
+      ),
+    ];
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 30),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 4, top: 32),
-              child: Row(
+        appBar: AppBar(
+          backgroundColor: backgroundColor,
+          automaticallyImplyLeading: false,
+          title: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   IconButton(
                     icon: const Icon(Icons.arrow_back),
@@ -103,124 +203,44 @@ class _EducationPageState extends State<EducationPage> {
                       fontStyle: FontStyle.italic,
                     ),
                   ),
-                ],
+                ]),
+          ),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Expanded(
+              child: SizedBox(
+                height: 430, // Card height
+                child: PageView.builder(
+                  itemCount: items.length,
+                  controller: _controller,
+                  itemBuilder: (context, index) {
+                    return ListenableBuilder(
+                      listenable: _controller,
+                      builder: (context, child) {
+                        double factor = 1;
+                        if (_controller.position.hasContentDimensions) {
+                          factor = 1 - (_controller.page! - index).abs();
+                        }
+                        return Center(
+                          child: SizedBox(
+                            height: 400 + (factor * 30),
+                            child: Card(
+                              color: bottomNavbarColor,
+                              elevation: 4,
+                              child: items[index],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ModulePageCard(
-                titleText: 'CLIMATE CHANGE',
-                subtitleText: 'Use our module',
-                rowIcon: const ImageIcon(
-                  AssetImage("assets/icon/climate.png"),
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ClimateChange(onComplete: _upgradeProgress)));
-                },
-              ),
-              ModulePageCard(
-                titleText: 'OVERFISHING',
-                subtitleText: 'Use our module',
-                rowIcon: const ImageIcon(
-                  AssetImage("assets/icon/overfishing.png"),
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Overfishing(onComplete: _upgradeProgress)));
-                },
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ModulePageCard(
-                titleText: 'POLLUTION',
-                subtitleText: 'Use our module',
-                rowIcon: const ImageIcon(
-                  AssetImage("assets/icon/pollution.png"),
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              Pollution(onComplete: _upgradeProgress)));
-                },
-              ),
-              ModulePageCard(
-                titleText: 'HUMAN IMPACT ON COASTAL AREAS',
-                subtitleText: 'Use our module',
-                rowIcon: const ImageIcon(
-                  AssetImage("assets/icon/humanimpact.png"),
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              HumanImpact(onComplete: _upgradeProgress)));
-                },
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ModulePageCard(
-                titleText: 'FOREIGN SPECIES TO SEA CREATURES',
-                subtitleText: 'Use our module',
-                rowIcon: const ImageIcon(
-                  AssetImage("assets/icon/fishspecies.png"),
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ForeignSpecies(onComplete: _upgradeProgress)));
-                },
-              ),
-              ModulePageCard(
-                titleText: 'SEA TEMPETURE CHANGES',
-                subtitleText: 'Use our module',
-                rowIcon: const ImageIcon(
-                  AssetImage("assets/icon/watertemperature.png"),
-                  color: Colors.white,
-                  size: 30,
-                ),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              SeaTemperature(onComplete: _upgradeProgress)));
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    ));
+          ],
+        ));
   }
 }

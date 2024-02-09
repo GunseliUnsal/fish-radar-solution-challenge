@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "182067948842",
+    "project_id": "fish-radar-feedback",
+    "storage_bucket": "fish-radar-feedback.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182067948842:android:90f75a28582b47d4854253",
+        "android_client_info": {
+          "package_name": "com.example.fish_radar_sc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGt5izSvFm5ChTmeTnTzLTjmLMTLcJeY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

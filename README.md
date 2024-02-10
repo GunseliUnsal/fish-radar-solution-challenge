@@ -23,7 +23,7 @@ Fish Radar is a mobile application developed to protect our oceans and promote s
 <img src="/img/app5.png" alt="App photo" style="width: 900px;">
 
 ## 🛠️ About
-<img src="/img/tech.png" alt="About" style="height: 500px;">
+<img src="/img/tech.png" alt="About"  style="width: 900px;">
 
 ## 👥  Contributors
 

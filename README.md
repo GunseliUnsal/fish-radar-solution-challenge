@@ -16,11 +16,11 @@ Fish Radar is a mobile application developed to protect our oceans and promote s
 2. Run the apk file on your phone.
 
 ## 🐠 App Photos
-<img src="/img/app1.png" alt="App photo" style="height: 500px;">
-<img src="/img/app2.png" alt="App photo" style="height: 500px;">
-<img src="/img/app_3.png" alt="App photo" style="height: 500px;">
-<img src="/img/app4.png" alt="App photo" style="height: 500px;">
-<img src="/img/app5.png" alt="App photo" style="height: 500px;">
+<img src="/img/app1.png" alt="App photo"  style="width: 900px;">
+<img src="/img/app2.png" alt="App photo" style="width: 900px;">
+<img src="/img/app_3.png" alt="App photo"  style="width: 900px;">
+<img src="/img/app4.png" alt="App photo"  style="width: 900px;">
+<img src="/img/app5.png" alt="App photo" style="width: 900px;">
 
 ## 🛠️ About
 <img src="/img/tech.png" alt="About" style="height: 500px;">
@@ -29,5 +29,5 @@ Fish Radar is a mobile application developed to protect our oceans and promote s
 
 |[Günseli Ünsal](https://github.com/GunseliUnsal)|[Yusuf Talha Kılıç](https://github.com/yusuftalhaklc)|[Hilda Doğa Arslanpençesi](https://github.com/HildaDoga)|[Azranur Vardar](https://github.com/azranurvrdr)|
 |---|---|---|---|
-|<img src="https://avatars.githubusercontent.com/u/93467749?v=4" style="height: 200px;">|<img src="https://media.licdn.com/dms/image/D4D03AQH8Q23WYsoIiA/profile-displayphoto-shrink_200_200/0/1689271769383?e=1712793600&v=beta&t=m6Isb7RjFh8af3iG9nr2ZX09LO4E7nekUbNg64pzh6I" style="height: 200px;">|<img src="https://avatars.githubusercontent.com/u/149239440?v=4" style="height: 200px;">|<img src="https://avatars.githubusercontent.com/u/149239437?v=4" style="height: 200px;">|
+|<img src="https://avatars.githubusercontent.com/u/93467749?v=4" style="width: 200px;">|<img src="https://media.licdn.com/dms/image/D4D03AQH8Q23WYsoIiA/profile-displayphoto-shrink_200_200/0/1689271769383?e=1712793600&v=beta&t=m6Isb7RjFh8af3iG9nr2ZX09LO4E7nekUbNg64pzh6I" style="width: 200px;">|<img src="https://avatars.githubusercontent.com/u/149239440?v=4" style="width: 200px;">|<img src="https://avatars.githubusercontent.com/u/149239437?v=4" style="width: 200px;">|
 

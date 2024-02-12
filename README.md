@@ -7,7 +7,7 @@ Fish Radar is a mobile application developed to protect our oceans and promote s
 
 ## 📽  Demo Video Link
 
-<a href="https://github.com/GunseliUnsal/fish-radar-solution-challenge"> <img src="/img/youtube.png" alt="Fish Radar" style="width: 900px;"> </a>
+<a href="https://youtu.be/EyB9gsflPqU?si=H-VL7VCr1e6tWX-W"> <img src="/img/youtube.png" alt="Fish Radar" style="width: 900px;"> </a>
 
 ## 📲 How to Download
   For Android User

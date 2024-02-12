@@ -5,7 +5,7 @@
 Fish Radar is a mobile application developed to protect our oceans and promote sustainable fishing. With a Google Maps-based map module, it displays fish species in your surroundings, highlights prohibited catches, and guides users towards conscious fishing. Additionally, equipped with the Gemini AI technology, the photo module allows instant information about fish species, enabling users to make informed decisions for the sustainability of their populations. Fish Radar takes a significant step towards UN's sustainable development goals, raising awareness about marine conservation.
 
 
-## 📽  Demo Video Link
+## 🎥  Demo Video Link
 
 <a href="https://youtu.be/EyB9gsflPqU?si=H-VL7VCr1e6tWX-W"> <img src="/img/youtube.png" alt="Fish Radar" style="width: 900px;"> </a>
 
